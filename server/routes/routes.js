@@ -54,7 +54,7 @@ router.post('/getusers/:id', (req, res) => {
 })
 //para poder usar mas de 1 middelware se debe poner entre corchetes
 // primero que verifique el token
-router.post('/user', async (req, res) => {
+router.post('/user', middelwares, async (req, res) => {
 
     const { nombre, email, password, role, } = req.body;
     let usuario = new UsuarioM({

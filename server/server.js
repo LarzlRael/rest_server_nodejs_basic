@@ -4,7 +4,7 @@ const morgan = require('morgan')
 //para establecer el puerto y base de datos
 require('./config/config');
 
-mongoose.connect('mongodb://localhost/udemy_rest_node', {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
@@ -26,6 +26,6 @@ app.use(morgan('dev'))
 app.use(routes)
 
 app.listen(process.env.PORT, () => {
-    
+
     console.log(`Entrar a: http://localhost:${process.env.PORT}`)
 })

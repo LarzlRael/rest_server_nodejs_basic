@@ -1,30 +1,30 @@
-//para establecer el puerto
+const mongoose = require('mongoose');
+const morgan = require('morgan')
+
+//para establecer el puerto y base de datos
 require('./config/config');
+
+
+mongoose.connect(process.env.URLDB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+}).then(db => console.log('Base de datos conectada'))
+    .catch(err => console.log(err))
+
 
 const express = require('express');
 const app = express();
-
+const routes = require('./routes')
 
 //parse application/json
 app.use(express.json());
 //parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
-app.get('/', (req, res) => {
-    res.json('hola mundo :D')
-})
-app.get('/getusers', (req, res) => {
-    res.json('get_usuarios')
-})
 
-app.post('/getusers/:id', (req, res) => {
-    const { id } = req.params;
-    console.log(`el id es : ${id}`)
-    res.json('hiciste una peticio post')
-})
-app.post('/user',(req,res)=>{
-    const body = req.body;
-    res.json(body)
-})
+//para ver las rutas
+app.use(morgan('dev'))
+app.use(routes)
 
 app.listen(process.env.PORT, () => {
     console.log('escuchando desde el puerto : ' + process.env.PORT);

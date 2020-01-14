@@ -72,7 +72,7 @@ router.post('/google', async (req, res) => {
     console.log(req.body);
     
     console.log('token recibido : ' + token);
-
+    
     let googleUser = await verify(token)
         .catch(e => {
             return res.status(403).json({

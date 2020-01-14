@@ -67,19 +67,26 @@ async function verify(token) {
 
 //ruta para poder entrar con google
 router.post('/google', async (req, res) => {
-    let token = req.body.idtoken;
 
-    let googleUser = await verify(token).catch(e => {
-        return res.status(403).json({
-            ok: false,
-            err: e
-        })
-    });
+    let token = req.body.idtoken;
+    console.log(req.body);
+    
+    console.log('token recibido : ' + token);
+    
+    let googleUser = await verify(token)
+        .catch(e => {
+            return res.status(403).json({
+                ok: false,
+                err: {
+                    message: 'Token no valido'
+                }
+            })
+        });
 
     // res.json({
     //     usuario: googleUser
     // })
-   try {
+    try {
         const usuarioDB = await UserM.findOne({ email: googleUser.email });
         console.log('usuario de google' + googleUser.email)
         if (usuarioDB) {
@@ -118,7 +125,7 @@ router.post('/google', async (req, res) => {
                     token
                 })
             } catch (error) {
-                res.status(500).json( error)
+                res.status(500).json(error)
             }
         }
     } catch (error) {

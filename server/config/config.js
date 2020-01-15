@@ -23,7 +23,7 @@ urlDB = process.env.MONGO_URI;
 // 24 horas
 // 30 dias
 
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30 * 2;
 
 // ============================
 // seed de autenticacion

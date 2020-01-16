@@ -7,7 +7,8 @@ require('./config/config');
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: true
 }).then(db => console.log('Base de datos mongo conectada'))
     .catch(err => console.log(err))
 
@@ -28,7 +29,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(morgan('dev'))
 app.use(routes)
 
-app.listen(process.env.PORT, () => {
 
+app.listen(process.env.PORT, () => {
     console.log(`Entrar a: http://localhost:${process.env.PORT}`)
 })
